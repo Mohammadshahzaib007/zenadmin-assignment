@@ -5,7 +5,9 @@ function HomePage() {
   return (
     <section>
       <Container>
-        <SearchBar />
+        <div className="w-1/2 mx-auto mt-8">
+          <SearchBar />
+        </div>
       </Container>
     </section>
   );
