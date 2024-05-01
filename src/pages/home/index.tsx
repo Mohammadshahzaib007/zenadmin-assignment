@@ -1,9 +1,12 @@
 import Container from "../../components/container";
+import SearchBar from "../../components/search-bar";
 
 function HomePage() {
   return (
     <section>
-      <Container>HomePage</Container>
+      <Container>
+        <SearchBar />
+      </Container>
     </section>
   );
 }
