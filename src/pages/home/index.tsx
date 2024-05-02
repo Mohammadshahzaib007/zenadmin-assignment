@@ -3,7 +3,7 @@ import { useSearchParams } from "react-router-dom";
 
 import Container from "../../components/container";
 import SearchBar from "../../components/search-bar";
-import { API_RESPONSE, News } from "../../types";
+import { API_RESPONSE, LoadingTypes, News } from "../../types";
 import Card from "../../components/card";
 
 const API = "http://hn.algolia.com/api/v1/search";
@@ -12,6 +12,7 @@ function HomePage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [query, setQuery] = useState(searchParams.get("query") as string);
   const [news, setNews] = useState<News[]>([]);
+  const [busy, setBusy] = useState<LoadingTypes>(null);
 
   const queryChangeHandler = (e: React.FormEvent<HTMLInputElement>) => {
     setQuery(e.currentTarget.value);
@@ -21,7 +22,7 @@ function HomePage() {
     if (!query) return;
 
     setSearchParams({ query });
-
+    setBusy("loading");
     try {
       const response = await fetch(`${API}?query=${query}`);
 
@@ -43,7 +44,9 @@ function HomePage() {
       );
 
       setNews(refinedData);
+      setBusy("success");
     } catch (error) {
+      setBusy("error");
       console.error("Error fetching search results:", error);
     }
   };
@@ -56,6 +59,7 @@ function HomePage() {
             onChange={queryChangeHandler}
             value={query}
             onSearch={searchHandler}
+            searching={busy === "loading"}
           />
         </div>
 

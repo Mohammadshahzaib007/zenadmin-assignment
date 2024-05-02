@@ -15,3 +15,5 @@ export interface API_RESPONSE {
   updated_at: string;
   _tags: string[];
 }
+
+export type LoadingTypes = "loading" | "error" | "success" | null;
