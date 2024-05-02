@@ -1,8 +1,8 @@
 import { useParams } from "react-router-dom";
 
 import Container from "../../components/container";
-import { useCallback, useEffect, useState } from "react";
-import { ITEM_DETAILS_TYPE, LoadingTypes } from "../../types";
+import { ReactNode, useCallback, useEffect, useState } from "react";
+import { ChildrenEntity1, ITEM_DETAILS_TYPE, LoadingTypes } from "../../types";
 
 const API = "http://hn.algolia.com/api/v1/items/";
 
@@ -31,6 +31,29 @@ function DetailsPage() {
     getDetails();
   }, [getDetails]);
 
+  const renderComments = (
+    comments: ChildrenEntity1[],
+    depth = 0
+  ): ReactNode[] => {
+    return comments?.map((comment: ChildrenEntity1) => (
+      <>
+        <div
+          key={comment.id}
+          className={`flex border ml-[${
+            2 + depth * 2
+          }px] font-medium rounded px-2.5 py-1.5 cursor-pointer hover:scale-[1.02] transition-all`}
+          style={{ marginLeft: `${2 + depth * 20}px` }}
+        >
+          <p>
+            {comment.text} —<strong>{comment.author}</strong>
+          </p>
+        </div>
+        {/* @ts-expect-error 123 */}
+        {comment.children && renderComments(comment.children, depth + 1)}
+      </>
+    ));
+  };
+
   return (
     <Container className="text-[#0E141E]">
       {busy === "loading" ? (
@@ -48,16 +71,8 @@ function DetailsPage() {
 
           <h3 className="text-3xl font-semibold mt-8 mb-5">Comments 👇</h3>
           <div className="flex flex-col gap-4">
-            {details?.children?.map((comment) => (
-              <div
-                key={comment?.id}
-                className="flex border-[2px] font-medium rounded px-2.5 py-1.5 cursor-pointer hover:scale-[1.02] transition-all"
-              >
-                <p>
-                  {comment?.text} —<strong>{comment?.author}</strong>
-                </p>
-              </div>
-            ))}
+            {/* @ts-expect-error 123 */}
+            {renderComments(details?.children)}
           </div>
         </>
       )}
