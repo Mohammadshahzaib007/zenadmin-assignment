@@ -48,7 +48,6 @@ function HomePage() {
       setBusy("success");
     } catch (error) {
       setBusy("error");
-      console.error("Error fetching search results:", error);
     }
   };
 

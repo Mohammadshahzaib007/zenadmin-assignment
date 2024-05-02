@@ -1,6 +1,7 @@
 import moment from "moment";
 
 import { News } from "../../types";
+import Tag from "../tag";
 
 interface PropTypes extends News {
   onClick: (id: string) => void;
@@ -25,12 +26,7 @@ function Card(props: PropTypes) {
 
         <div className="flex gap-1">
           {tags.map((t, i) => (
-            <div
-              key={i}
-              className="text-xs border border-[#0E612C] bg-[rgba(14,97,44,0.1)] px-1.5 py-0.5 rounded"
-            >
-              {t}
-            </div>
+            <Tag key={i} title={t} />
           ))}
         </div>
       </div>
