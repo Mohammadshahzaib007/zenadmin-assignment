@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 import Container from "../../components/container";
 import SearchBar from "../../components/search-bar";
@@ -9,6 +9,7 @@ import Card from "../../components/card";
 const API = "http://hn.algolia.com/api/v1/search";
 
 function HomePage() {
+  const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const [query, setQuery] = useState(searchParams.get("query") as string);
   const [news, setNews] = useState<News[]>([]);
@@ -51,6 +52,10 @@ function HomePage() {
     }
   };
 
+  const cardClickHandler = (id: string) => {
+    navigate(`/news/${id}`);
+  };
+
   return (
     <section>
       <Container>
@@ -71,6 +76,7 @@ function HomePage() {
           <div className="flex gap-4 flex-col mt-6 mb-8 w-3/4 mx-auto">
             {news.map((e) => (
               <Card
+                onClick={cardClickHandler}
                 key={e.id}
                 id={e.id}
                 title={e.title}
