@@ -63,19 +63,25 @@ function HomePage() {
           />
         </div>
 
-        <div className="flex gap-4 flex-col mt-6 mb-8 w-3/4 mx-auto">
-          {news.map((e) => (
-            <Card
-              key={e.id}
-              id={e.id}
-              title={e.title}
-              author={e.author}
-              createdAt={e.createdAt}
-              updatedAt={e.updatedAt}
-              tags={e.tags}
-            />
-          ))}
-        </div>
+        {busy === "error" ? (
+          <h3 className="text-xl text-red-500 text-center mt-12">
+            Something went wrong 🤯, Please try again!
+          </h3>
+        ) : (
+          <div className="flex gap-4 flex-col mt-6 mb-8 w-3/4 mx-auto">
+            {news.map((e) => (
+              <Card
+                key={e.id}
+                id={e.id}
+                title={e.title}
+                author={e.author}
+                createdAt={e.createdAt}
+                updatedAt={e.updatedAt}
+                tags={e.tags}
+              />
+            ))}
+          </div>
+        )}
       </Container>
     </section>
   );
