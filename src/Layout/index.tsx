@@ -1,5 +1,5 @@
 import React from "react";
-import Nav from "./nav";
+import Navbar from "./navbar";
 import { Outlet } from "react-router-dom";
 
 type PropTypes = {
@@ -10,7 +10,7 @@ export default function Layout(props: PropTypes) {
   const { children } = props;
   return (
     <>
-      <Nav />
+      <Navbar />
       {children}
       <Outlet />
     </>

@@ -1,6 +1,6 @@
 import Container from "../../components/container";
 
-export default function Nav() {
+export default function Navbar() {
   return (
     <nav className="h-[3.75rem] bg-[#0E141E] mb-4">
       <Container className="w-full h-full flex items-center">
